@@ -1,3 +1,12 @@
+let playerSelection = "";
+const buttons = document.querySelectorAll(".cbtn");
+buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+        playerSelection = button.id;
+        playRound(getComputerChoice(), playerSelection);
+    });
+});
+
 function getComputerChoice() {
     // Getting a random number between 1 and 3
     let random_number = Math.floor(Math.random() * 3 + 1);
@@ -10,42 +19,43 @@ function getComputerChoice() {
             return "scissors";
     }
 }
+
 // Playing a round to see results
-function playRound(playerSelection, computerSelection) {
+function playRound(computerSelection, playerSelection) {
     // Converting selections to lowercase for comparison
     playerSelection = playerSelection.toLowerCase();
+    console.log(computerSelection, playerSelection);
     // Comparing Players Choices
     if (playerSelection == computerSelection) {
-        return "Tie!";
+        return game("Tie!");
     } else if (playerSelection == "rock") {
         if (computerSelection == "paper") {
-            return "You Lose! Paper beats Rock";
+            return game("You Lose! Paper beats Rock");
         } else {
-            return "You Win! Rock beats Scissors";
+            return game("You Win! Rock beats Scissors");
         }
     } else if (playerSelection == "paper") {
         if (computerSelection == "rock") {
-            return "You Win! Paper beats Rock";
+            return game("You Win! Paper beats Rock");
         } else {
-            return "You Lose! Scissors beats Paper";
+            return game("You Lose! Scissors beats Paper");
         }
     } else if (playerSelection == "scissors") {
         if (computerSelection == "rock") {
-            return "You Lose! Rock beats Scissors";
+            return game("You Lose! Rock beats Scissors");
         } else {
-            return "You Win! Scissors beats Paper";
+            return game("You Win! Scissors beats Paper");
         }
     }
 }
 
-function game() {
+function game(results) {
     // Initialize wins counter variables
     let playerWins = 0;
     let computerWins = 0;
+    console.log(results);
     // Playing 5 rounds
     for (let i = 0; i < 5; i++) {
-        playerSelection = prompt("Rock, Paper, Scissors!");
-        results = playRound(playerSelection, getComputerChoice());
         // Giving a point to the Winner or both if Tie
         if (results.includes("Win")) {
             playerWins++;
