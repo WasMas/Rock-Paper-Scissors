@@ -1,11 +1,27 @@
+// Initialize wins counter variables
+let playerWins = 0;
+let computerWins = 0;
 let playerSelection = "";
+let roundCount = 0;
+// Create element to declare who won/lost
+const winLose = document.createElement("h2");
+// Select buttons
 const buttons = document.querySelectorAll(".cbtn");
 buttons.forEach((button) => {
+    // add click listener
     button.addEventListener("click", () => {
+        // get id of clicked buttons
         playerSelection = button.id;
         playRound(getComputerChoice(), playerSelection);
     });
 });
+// Select body
+const body = document.querySelector("body");
+// Create a div for scores
+const scores = document.createElement("div");
+// initiate score div text
+scores.innerText = "You: 0, Computer: 0";
+body.appendChild(scores);
 
 function getComputerChoice() {
     // Getting a random number between 1 and 3
@@ -22,9 +38,11 @@ function getComputerChoice() {
 
 // Playing a round to see results
 function playRound(computerSelection, playerSelection) {
+    if (document.querySelector("h2") != null) {
+        body.removeChild(winLose);
+    }
     // Converting selections to lowercase for comparison
     playerSelection = playerSelection.toLowerCase();
-    console.log(computerSelection, playerSelection);
     // Comparing Players Choices
     if (playerSelection == computerSelection) {
         return game("Tie!");
@@ -50,28 +68,33 @@ function playRound(computerSelection, playerSelection) {
 }
 
 function game(results) {
-    // Initialize wins counter variables
-    let playerWins = 0;
-    let computerWins = 0;
-    console.log(results);
-    // Playing 5 rounds
-    for (let i = 0; i < 5; i++) {
-        // Giving a point to the Winner or both if Tie
-        if (results.includes("Win")) {
-            playerWins++;
-        } else if (results.includes("Lose")) {
-            computerWins++;
-        } else {
-            computerWins++;
-            playerWins++;
-        }
-    }
-    // Checking for the winner by comparing points earned and returning the result
-    if (playerWins > computerWins) {
-        return "You Win!, Computer Lose";
-    } else if (playerWins < computerWins) {
-        return "Computer Win!, You Lose";
+    // Giving a point to the Winner or both if Tie
+    if (results.includes("Win")) {
+        playerWins++;
+        roundCount++;
+    } else if (results.includes("Lose")) {
+        computerWins++;
+        roundCount++;
     } else {
-        return "Tie!";
+        computerWins++;
+        playerWins++;
+        roundCount++;
+    }
+    // Update scores
+    scores.innerText = `Round : ${roundCount}\n You : ${playerWins} ,Computer :${computerWins}`;
+    if (roundCount == 5) {
+        // Checking for the winner by comparing points earned and returning the result
+        // Creating winner header based on results
+        if (playerWins > computerWins) {
+            winLose.innerText = "You Win!, Computer Lose";
+        } else if (playerWins < computerWins) {
+            winLose.innerText = "Computer Win!, You Lose";
+        } else {
+            winLose.innerText = "Tie!";
+        }
+        body.appendChild(winLose);
+        playerWins = 0;
+        computerWins = 0;
+        roundCount = 0;
     }
 }
