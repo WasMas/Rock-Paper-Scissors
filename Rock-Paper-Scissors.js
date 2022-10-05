@@ -22,6 +22,7 @@ const scores = document.createElement("div");
 // initiate score div text
 scores.innerText = "You: 0, Computer: 0";
 body.appendChild(scores);
+scores.classList.add("scores");
 
 function getComputerChoice() {
     // Getting a random number between 1 and 3
@@ -81,18 +82,19 @@ function game(results) {
         roundCount++;
     }
     // Update scores
-    scores.innerText = `Round : ${roundCount}\n You : ${playerWins} ,Computer :${computerWins}`;
+    scores.innerText = `Round : ${roundCount} || You : ${playerWins} ,Computer :${computerWins}`;
     if (roundCount == 5) {
         // Checking for the winner by comparing points earned and returning the result
         // Creating winner header based on results
         if (playerWins > computerWins) {
-            winLose.innerText = "You Win!, Computer Lose";
+            winLose.innerText = "Results: You Win!, Computer Lose";
         } else if (playerWins < computerWins) {
-            winLose.innerText = "Computer Win!, You Lose";
+            winLose.innerText = "Results: Computer Win!, You Lose";
         } else {
-            winLose.innerText = "Tie!";
+            winLose.innerText = "Results: Tie!";
         }
         body.appendChild(winLose);
+        winLose.classList.add("win-lose")
         playerWins = 0;
         computerWins = 0;
         roundCount = 0;
