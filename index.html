@@ -7,19 +7,26 @@
         <link rel="stylesheet" href="./styles.css" />
         <script src="./Rock-Paper-Scissors.js" defer></script>
         <title>Rock Paper Scissors!</title>
+    </head>
     <body>
-        <audio id="paper-audio" src="./Sound/Paper Sound Effect.mp3" preload="auto"></audio>
-        <audio id="rock-audio" src="./Sound/Rock Sound Effect.mp3" preload="auto"></audio>
-        <audio id="scissors-audio" src="./Sound/Scissors sound effect.mp3" preload="auto"></audio>        
+        <audio id="paper-audio" preload="auto">
+            <source src="./Sound/Paper Sound Effect.mp3" />
+        </audio>
+        <audio id="rock-audio" preload="auto">
+            <source src="./Sound/Rock Sound Effect.mp3" />
+        </audio>
+        <audio id="scissors-audio" preload="auto">
+            <source src="./Sound/Scissors sound effect.mp3" />
+        </audio>
         <h1>The Ultimate Rock, Paper, Scissors</h1>
         <div class="choice-buttons">
-            <button class="cbtn" id="rock">
+            <button class="cbtn" id="rock" onmouseover="document.getElementById('rock-audio').play()">
                 <img class="choice-image" src="./img/rock.png" />
             </button>
-            <button class="cbtn" id="paper">
+            <button class="cbtn" id="paper" onmouseover="document.getElementById('paper-audio').play()">
                 <img class="choice-image" src="./img/paper.png" />
             </button>
-            <button class="cbtn" id="scissors">
+            <button class="cbtn" id="scissors" onmouseover="document.getElementById('scissors-audio').play()">
                 <img class="choice-image" src="./img/scissors.png" />
             </button>
         </div>
