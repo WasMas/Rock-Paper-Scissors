@@ -1,10 +1,16 @@
-// Initialize wins counter variables
+// Initialize wins, round counters and player variables
 let playerWins = 0;
 let computerWins = 0;
 let playerSelection = "";
 let roundCount = 0;
-// Create element to declare who won/lost
+
+// Select Nodes
+const body = document.querySelector("body");
+const computerChoice = document.createElement("h3");
+// Create Nodes
 const winLose = document.createElement("h2");
+const scores = document.createElement("div");
+
 // Select buttons
 const buttons = document.querySelectorAll(".cbtn");
 buttons.forEach((button) => {
@@ -12,13 +18,20 @@ buttons.forEach((button) => {
     button.addEventListener("click", () => {
         // get id of clicked buttons
         playerSelection = button.id;
-        playRound(getComputerChoice(), playerSelection);
+        let computerSelection = getComputerChoice();
+        computerChoice.innerText = `Computer's Choice: ${computerSelection}`;
+        body.insertBefore(computerChoice, scores);
+        playRound(computerSelection, playerSelection);
+        if (computerSelection == "scissors") {
+            computerChoice.style.color = "rgb(64,220,255)";
+        } else if (computerSelection == "rock") {
+            computerChoice.style.color = "rgb(255,133,255)";
+        } else {
+            computerChoice.style.color = "RGB(252,237,25)";
+        }
     });
 });
-// Select body
-const body = document.querySelector("body");
-// Create a div for scores
-const scores = document.createElement("div");
+
 // initiate score div text
 scores.innerText = "You: 0, Computer: 0";
 body.appendChild(scores);
@@ -94,7 +107,7 @@ function game(results) {
             winLose.innerText = "Results: Tie!";
         }
         body.appendChild(winLose);
-        winLose.classList.add("win-lose")
+        winLose.classList.add("win-lose");
         playerWins = 0;
         computerWins = 0;
         roundCount = 0;
